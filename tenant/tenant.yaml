@@ -1,8 +1,25 @@
-rules: []
+rules:
+  - name: Multifactor Stepup Authentication
+    script: ./rules/Multifactor Stepup Authentication.js
+    stage: login_success
+    enabled: false
+    order: 1
 rulesConfigs: []
 hooks: []
 pages: []
-resourceServers: []
+resourceServers:
+  - name: Secret
+    identifier: 'https://my-secret-api'
+    allow_offline_access: true
+    enforce_policies: true
+    scopes:
+      - value: 'read:secret'
+        description: read secret
+    signing_alg: RS256
+    skip_consent_for_verifiable_first_party_clients: true
+    token_dialect: access_token_authz
+    token_lifetime: 10
+    token_lifetime_for_web: 10
 clients:
   - name: Default App
     callbacks: []
@@ -12,6 +29,64 @@ clients:
       - authorization_code
       - implicit
       - refresh_token
+      - client_credentials
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    oidc_conformant: true
+    refresh_token:
+      rotation_type: non-rotating
+      expiration_type: non-expiring
+    sso_disabled: false
+  - name: My App
+    allowed_clients: []
+    allowed_logout_urls:
+      - 'http://localhost:3000'
+      - 'http://mywebsite:3000'
+    allowed_origins:
+      - 'http://localhost:3000'
+      - 'http://mywebsite:3000'
+    app_type: spa
+    callbacks:
+      - 'http://localhost:3000'
+      - 'http://mywebsite:3000'
+    client_aliases: []
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - authorization_code
+      - implicit
+      - refresh_token
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    native_social_login:
+      apple:
+        enabled: false
+      facebook:
+        enabled: false
+    oidc_conformant: true
+    refresh_token:
+      leeway: 8
+      token_lifetime: 10
+      rotation_type: rotating
+      expiration_type: expiring
+    sso_disabled: false
+    token_endpoint_auth_method: none
+    web_origins:
+      - 'http://localhost:3000'
+      - 'http://mywebsite:3000'
+  - name: Secret (Test Application)
+    app_type: non_interactive
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
       - client_credentials
     is_first_party: true
     is_token_endpoint_ip_header_trusted: false
@@ -47,6 +122,8 @@ databases:
   - name: Username-Password-Authentication
     strategy: auth0
     enabled_clients:
+      - Secret (Test Application)
+      - My App
       - auth0-deploy-cli-extension
       - Default App
     is_domain_connection: false
@@ -63,6 +140,8 @@ connections:
   - name: google-oauth2
     strategy: google-oauth2
     enabled_clients:
+      - Secret (Test Application)
+      - My App
       - auth0-deploy-cli-extension
       - Default App
     is_domain_connection: false
@@ -79,7 +158,10 @@ tenant:
     disable_clickjack_protection_headers: false
 emailProvider: {}
 emailTemplates: []
-clientGrants: []
+clientGrants:
+  - client_id: Secret (Test Application)
+    audience: 'https://my-secret-api'
+    scope: []
 guardianFactors:
   - name: duo
     enabled: false
@@ -90,9 +172,24 @@ guardianFactors:
   - name: push-notification
     enabled: false
   - name: sms
-    enabled: false
-guardianFactorProviders: []
-guardianFactorTemplates: []
-roles: []
+    enabled: true
+guardianFactorProviders:
+  - name: sms
+    from: null
+    messaging_service_sid: null
+    provider: twilio
+    sid: null
+guardianFactorTemplates:
+  - name: sms
+    enrollment_message: >-
+      {{code}} is your verification code for {{tenant.friendly_name}}. Please
+      enter this code to verify your enrollment.
+    verification_message: '{{code}} is your verification code for {{tenant.friendly_name}}.'
+roles:
+  - name: Secret Agent
+    description: Agents that are entrusted with secrets
+    permissions:
+      - permission_name: 'read:secret'
+        resource_server_identifier: 'https://my-secret-api'
 branding: {}
 prompts: {}
