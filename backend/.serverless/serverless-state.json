@@ -182,7 +182,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/pizza-42-api-server/dev/1592142403602-2020-06-14T13:46:43.602Z/pizza-42-api-server.zip"
+                "S3Key": "serverless/pizza-42-api-server/dev/1592147609305-2020-06-14T15:13:29.305Z/pizza-42-api-server.zip"
               },
               "FunctionName": "pizza-42-api-server-dev-app",
               "Handler": "index.handler",
@@ -209,14 +209,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersion19uUB7U6Z2gSSgrYNsTJzmmlW3cTVkDKHbPjV4Wik": {
+          "AppLambdaVersionQD9yFs7BCXdUrufcV2NCnVY9u68npqE3csjjHIepzg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "H7QHmbpdV1/HX4JrxgzHQGINrV7csEYLSjSXArK1B/M="
+              "CodeSha256": "HMbGsKVOYpK6B2h6J1fIvsimyFaziPolUg2KoraDqAM="
             }
           },
           "AuthLambdaFunction": {
@@ -226,7 +226,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/pizza-42-api-server/dev/1592142403602-2020-06-14T13:46:43.602Z/pizza-42-api-server.zip"
+                "S3Key": "serverless/pizza-42-api-server/dev/1592147609305-2020-06-14T15:13:29.305Z/pizza-42-api-server.zip"
               },
               "FunctionName": "pizza-42-api-server-dev-auth",
               "Handler": "index.auth",
@@ -253,14 +253,14 @@
               "AuthLogGroup"
             ]
           },
-          "AuthLambdaVersiongorKQ31OPTnh12PCykirF6Sb92XlHtIdhqyAyKo3jrc": {
+          "AuthLambdaVersionNYwcOVzNsSUTVv730WoR9WYiQXxYF6THVGLqRAJars4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AuthLambdaFunction"
               },
-              "CodeSha256": "H7QHmbpdV1/HX4JrxgzHQGINrV7csEYLSjSXArK1B/M="
+              "CodeSha256": "HMbGsKVOYpK6B2h6J1fIvsimyFaziPolUg2KoraDqAM="
             }
           },
           "ApiGatewayRestApi": {
@@ -514,7 +514,7 @@
               "Type": "TOKEN"
             }
           },
-          "ApiGatewayDeployment1592142397982": {
+          "ApiGatewayDeployment1592147603666": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -654,13 +654,13 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersion19uUB7U6Z2gSSgrYNsTJzmmlW3cTVkDKHbPjV4Wik"
+              "Ref": "AppLambdaVersionQD9yFs7BCXdUrufcV2NCnVY9u68npqE3csjjHIepzg"
             }
           },
           "AuthLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AuthLambdaVersiongorKQ31OPTnh12PCykirF6Sb92XlHtIdhqyAyKo3jrc"
+              "Ref": "AuthLambdaVersionNYwcOVzNsSUTVv730WoR9WYiQXxYF6THVGLqRAJars4"
             }
           },
           "ServiceEndpoint": {
@@ -840,7 +840,7 @@
         "timeout": 6,
         "runtime": "nodejs10.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersion19uUB7U6Z2gSSgrYNsTJzmmlW3cTVkDKHbPjV4Wik"
+        "versionLogicalId": "AppLambdaVersionQD9yFs7BCXdUrufcV2NCnVY9u68npqE3csjjHIepzg"
       },
       "auth": {
         "handler": "index.auth",
@@ -852,7 +852,7 @@
         "timeout": 6,
         "runtime": "nodejs10.x",
         "vpc": {},
-        "versionLogicalId": "AuthLambdaVersiongorKQ31OPTnh12PCykirF6Sb92XlHtIdhqyAyKo3jrc"
+        "versionLogicalId": "AuthLambdaVersionNYwcOVzNsSUTVv730WoR9WYiQXxYF6THVGLqRAJars4"
       }
     },
     "resources": {
@@ -907,7 +907,7 @@
     "artifact": "/Users/johnlim/git/identity-over-lunch/iol-20200613/backend/.serverless/pizza-42-api-server.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/pizza-42-api-server/dev/1592142403602-2020-06-14T13:46:43.602Z",
+    "artifactDirectoryName": "serverless/pizza-42-api-server/dev/1592147609305-2020-06-14T15:13:29.305Z",
     "artifact": "pizza-42-api-server.zip"
   }
 }

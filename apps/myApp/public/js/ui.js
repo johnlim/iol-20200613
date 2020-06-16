@@ -63,7 +63,7 @@ const updateUI = async () => {
     if (isAuthenticated) {
 
       const options =
-          {scope: "openid profile email read:secret",
+          {scope: "openid profile email offline_access ",
             audience: "https://my-secret-api"}
       const cache = await auth0.getUser(options);
       const user = cache.decodedToken.user;

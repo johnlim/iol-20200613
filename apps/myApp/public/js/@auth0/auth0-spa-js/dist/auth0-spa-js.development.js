@@ -4357,9 +4357,10 @@
                     console.log("_a.label", _a.label)
                     switch (_a.label) {
                         case 0:
-                            const options =
-                                {scope: "openid profile email read:secret",
-                            audience: "https://my-secret-api"}
+                            const options = {
+                                scope: "openid profile email offline_access",
+                                audience: "https://my-secret-api"
+                            };
                             console.log("1) isAuthenticated getUser", this.getUser(options));
                             return [4 /*yield*/, this.getUser(options)];
                         case 1:

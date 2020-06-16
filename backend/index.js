@@ -60,7 +60,7 @@ function auth(event, context, callback) {
     console.log("decoded token", decoded.iss);
 
     const options = {
-    //   audience: '',
+       // audience: '',
     };
 
     var client = jwksClient({
@@ -76,7 +76,7 @@ function auth(event, context, callback) {
 
     try {
       jwt.verify(tokenValue, getKey, options, (verifyError, decoded) => {
-        if (verifyError || !decoded.permissions.includes('read:secret')) {
+        if (verifyError || !decoded.permissions.includes('read:secret') || !decoded.scope.split(" ").includes("read:secret")) {
           console.log('verifyError', verifyError);
           // 401 Unauthorized
           console.log(`Token invalid. ${verifyError}`);

@@ -10,7 +10,7 @@ const login = async (targetUrl) => {
 
     const options = {
       redirect_uri: window.location.origin,
-      scope: "openid profile email read:secret",
+      scope: "openid profile email offline_access",
       audience: "https://my-secret-api"
 
     };
@@ -54,7 +54,8 @@ const configureClient = async () => {
   auth0 = await createAuth0Client({
     domain: config.domain,
     client_id: config.clientId,
-    cacheLocation: 'localstorage'
+    cacheLocation: 'localstorage',
+    useRefreshTokens: true
   });
 };
 
@@ -132,6 +133,17 @@ window.onload = async () => {
 };
 
 const getSecret = async () => {
+  // let url = new URL('https://iol-20200613.au.auth0.com/authorize')
+  // url.search = new URLSearchParams({
+  //       scope: "openid profile email read:secret",
+  //       audience: "https://my-secret-api",
+  //       response_type: "code",
+  //       client_id: "qPkRSZ6Mj1RAItLOpu3mQA77lMyD1stx",
+  //       redirect_uri: "http://mywebsite:3000"
+  // })
+  // var x = await fetch(url)
+  // var x = await fetch("https://iol-20200613.au.auth0.com/authorize?client_id=qPkRSZ6Mj1RAItLOpu3mQA77lMyD1stx&scope=openid%20profile%20email%20offline_access&response_type=code&response_mode=web_message&state=UzRMMzdsQkZPTUZFa3hSR041OGFPVElyRVFuOUg3b3hUdGNXSE1UN04zag%3D%3D&nonce=SHF6WDU5R0dQR2pyMzlhallmLi1CbzBhNE5JajI3QUI1TzVBMDM1WG14YQ%3D%3D&redirect_uri=http%3A%2F%2Flocalhost%3A3000&code_challenge=zusHWd_J-rbU8qGlo4hCbiuweW-gqtGxko8coT73B78&code_challenge_method=S256&prompt=none&auth0Client=eyJuYW1lIjoiYXV0aDAtc3BhLWpzIiwidmVyc2lvbiI6IjEuOS4wIn0%3D", {mode: 'cors'})
+  // console.log("xxxx response xxxx", x)
 
   // const response = await fetch("https://z94ye18h18.execute-api.ap-southeast-1.amazonaws.com/dev/orders");
   // console.log("secret response = ", response)
@@ -141,6 +153,14 @@ const getSecret = async () => {
         audience: "https://my-secret-api"
       }
 );
+  const differentAudienceOptions = {
+        scope: "read:secret",
+        audience: "https://my-secret-api"
+  };
+
+  // const token = await auth0.getTokenSilently(differentAudienceOptions);
+  // console.log("token -----------------", token)
+
   var accessToken = user.access_token;
   console.log("accessToken", accessToken)
   var response = await fetch(`https://z94ye18h18.execute-api.ap-southeast-1.amazonaws.com/dev/orders`,
